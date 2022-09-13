@@ -1,35 +1,23 @@
 #include <stdio.h>
-
 /**
- * main - Prints the sum of even-valued Fibonacci sequence
- * terms not exceeding 4000000.
- *
- * Return: Always 0.
- */
-
+*main - prints sum of even fibonacci
+*suit elements
+*fibonacci suit numbers
+*Return: return 0
+*/
 int main(void)
 {
-	unsigned long fib, prevFib, prev2Fib;
-	float sum;
+unsigned long n1 = 0, n2 = 1, n3 = 0, sum = 0;
+while (n3 <= 4000000)
+{
+n3 = n1 + n2;
+n1 = n2;
+n2 = n3;
 
-	prevFib = 1;
-	prev2Fib = 0;
+if ((n1 % 2) == 0)
+sum += n1;
 
-	while (1)
-        {
-            	fib = prevFib + prev2Fib;
-
-		if (fib > 4000000)
-			break;
-
-		if ((fib % 2) == 0)
-			sum += fib;
-		prev2Fib = prevFib;
-		prevFib = fib;
-
-	}
-
-	printf("%.0f\n", sum);
-
-	return (0);
+}
+printf("%ld\n", sum);
+return (0);
 }
