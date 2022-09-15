@@ -1,20 +1,17 @@
-#include "holberton.h"
+#include <stdio.h>
+#include "main.h"
 
 /**
- * print_line - prints an underscore n times
- * @n: number of times printed
- *
- * Return: void
- */
-
+*print_line - prints a straight line
+*@n: parameter
+*Return:returns nothing
+*/
 
 void print_line(int n)
 {
-	int i;
-
-	for (i = 0; i < n; i++)
+	while (n-- > 0)
 	{
-		putchar('');
+		putchar('_');
 	}
-	_putchar('\n');
+	putchar('\n');
 }
