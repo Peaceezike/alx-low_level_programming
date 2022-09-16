@@ -1,81 +1,39 @@
-#include "holberton.h"
-
 #include <stdio.h>
 
-
-
 /**
-
- * main - Fizz for multiples of 3 and Buzz for multiples of 5 FizzBuzz for both
-
- *
-
- *
-
- * Return: Always 0
-
- */
+* main - entry block
+* @void: no argument
+* Return: 0 Success
+*/
 
 int main(void)
-
 {
+	int i;
 
-	int x = 1;
-
-
-
-	while (x < 101)
-
+	for (i = 1; i <= 100; i++)
 	{
-
-		if (x % 3 == 0 && x % 5 == 0)
-
+		if (i % 15 == 0)
 		{
-
-			printf("%s", "FizzBuzz");
-
+			printf("FizzBuzz ");
 		}
-
-		else if (x % 3 == 0)
-
+		else if (i % 5 == 0)
 		{
-
-			printf("%s", "Fizz");
-
+			if (i == 100)
+				printf("Buzz");
+			else
+				printf("Buzz ");
 		}
-
-		else if (x % 5 == 0)
-
+		else if (i % 3 == 0)
 		{
-
-			printf("%s", "Buzz");
-
+			printf("Fizz ");
 		}
-
 		else
-
-		{
-
-			printf("%d", x);
-
+                {
+			printf("%d ", i);
 		}
-
-
-
-		if (x != 100)
-
-		{
-
-		printf(" ");
-
-		}
-
-		x++;
-
 	}
 
 	printf("\n");
 
 	return (0);
-
 }
