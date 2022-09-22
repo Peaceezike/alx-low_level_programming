@@ -6,9 +6,9 @@
  * @n2: second number
  * @r: buffer for result
  * @size_r: buffer size
+ *
  * Return: address of r or 0
  */
-
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
 	int i, j, k, l, m, n;
@@ -40,7 +40,7 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 	for (k -= 1, l = 0; l < k; k--, l++)
 	{
 		m = r[k];
-                r[k] = r[l];
+		r[k] = r[l];
 		r[l] = m;
 	}
 	return (r);
