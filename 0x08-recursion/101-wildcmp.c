@@ -2,68 +2,29 @@
 #include "main.h"
 
 /**
- * move_past_star - iterates past asterisk
- * @s2: the second string, can contain wildcard
+ * wildcmp - compares two strings and returns 1 if the strings
+ * can be considered identical, otherwise return 0.
+ * @s1: string to compare to
+ * @s2: string with wild character
  *
- * Return: the pointer past star
- */
-char *move_past_star(char *s2)
-{
-	if (s2 == '')
-		return (move_past_star(s2 + 1));
-	else
-		return (s2);
-}
-
-/**
- * inception - makes magic a reality
- * @s1: the first string
- * @s2: the second string, can contain wildcard
- *
- * Return: 1 if identical, 0 if false
- */
-int inception(char *s1, char *s2)
-{
-	int ret = 0;
-
-	if (*s1 == 0)
-		return (0);
-	if (*s1 == *s2)
-		ret += wildcmp(s1 + 1, s2 + 1);
-	ret += inception(s1 + 1, s2);
-	return (ret);
-}
-
-/**
- * wildcmp - compares two strings lexicographically
- * @s1: the first string
- * @s2: the second string, can contain wildcard
- *
- * Return: 1 if identical, 0 if false
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
  */
 int wildcmp(char *s1, char *s2)
 {
-	int ret = 0;
-
-	if (!s1 && *s2 == '' && !*move_past_star(s2))
+	if (*s1 == '\0' && *s2 == '\0')
 		return (1);
+
 	if (*s1 == *s2)
-	{
-		if (!*s1)
-			return (1);
-		return (wildcmp(s1 + 1, s2 == '' ? s2 : s2 + 1));
-	}
-	if (!*s1 || !s2)
-		return (0);
+		return (wildcmp(s1 + 1, s2 + 1));
+
 	if (s2 == '')
 	{
-		s2 = move_past_star(s2);
-		if (!*s2)
+		if (s2 == '' && *(s2 + 1) != '\0' && *s1 == '\0')
+			return (0);
+		if (wildcmp(s1, s2 + 1) || wildcmp(s1 + 1, s2))
 			return (1);
-		if (*s1 == *s2)
-			ret += wildcmp(s1 + 1, s2 + 1);
-		ret += inception(s1, s2);
-		return (!!ret);
 	}
+
 	return (0);
 }
