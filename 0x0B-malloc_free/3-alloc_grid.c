@@ -9,39 +9,39 @@
  *
  * Return: If width <= 0, height <= 0, or the function fails - NULL.
  *         Otherwise - a pointer to the 2-dimensional array of integers.
+ *
  */
 int **alloc_grid(int width, int height)
 {
-	int **twoD;
-	int hgt_index, wid_index;
+	int i, j, **grid_array;
 
-	if (width <= 0 || height <= 0)
+	if (width < 1 || height < 1)
 		return (NULL);
 
-	twoD = malloc(sizeof(int *) * height);
+	grid_array = malloc(height * sizeof(int *));
 
-	if (twoD == NULL)
-		return (NULL);
-
-	for (hgt_index = 0; hgt_index < height; hgt_index++)
+	if (grid_array == NULL)
 	{
-		twoD[hgt_index] = malloc(sizeof(int) * width);
+		free(grid_array);
+		return (NULL);
+	}
 
-		if (twoD[hgt_index] == NULL)
+	for (i = 0; i < height; i++)
+	{
+		grid_array[i] = malloc(sizeof(int) * width);
+		if (grid_array[i] == NULL)
 		{
-			for (; hgt_index >= 0; hgt_index--)
-				free(twoD[hgt_index]);
-
-			free(twoD);
+			while (--i >= 0)
+				free(grid_array[i]);
+			free(grid_array);
 			return (NULL);
 		}
 	}
 
-	for (hgt_index = 0; hgt_index < height; hgt_index++)
+	for (i = 0; i < height; i++)
 	{
-		for (wid_index = 0; wid_index < width; wid_index++)
-			twoD[hgt_index][wid_index] = 0;
+		for (j = 0; j < width; j++)
+			grid_array[i][j] = 0;
 	}
-
-        return (twoD);
+        return (grid_array);
 }
