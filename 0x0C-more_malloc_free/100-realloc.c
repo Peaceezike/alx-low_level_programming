@@ -2,54 +2,55 @@
 #include <stdlib.h>
 
 /**
- * _realloc - Reallocates a memory block using malloc and free.
- * @ptr: A pointer to the memory previously allocated.
- * @old_size: The size in bytes of the allocated space for ptr.
- * @new_size: The size in bytes for the new memory block.
+ * _realloc - reallocates a memory block.
+ * @ptr: pointer to the memory previously allocated.
+ * @old_size: size, in bytes, of the allocated space of ptr.
+ * @new_size: new size, in bytes, of the new memory block.
  *
- * Return: If new_size == old_size - ptr.
- *         If new_size == 0 and ptr is not NULL - NULL.
- *         Otherwise - a pointer to the reallocated memory block.
+ * Return: ptr.
+ * if new_size == old_size, returns ptr without changes.
+ * if malloc fails, returns NULL.
  */
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	void *mem;
-	char *ptr_copy, *filler;
-	unsigned int index;
+	unsigned int i, j;
+	char *newPtr;
 
-	if (new_size == old_size)
+	if (old_size == new_size)
 		return (ptr);
-
 	if (ptr == NULL)
 	{
-		mem = malloc(new_size);
-
-		if (mem == NULL)
+		ptr = malloc(new_size);
+		if (ptr == NULL)
 			return (NULL);
-
-		return (mem);
+		return (ptr);
 	}
 
 	if (new_size == 0 && ptr != NULL)
-        	{
+        {
 		free(ptr);
 		return (NULL);
 	}
+	newPtr = malloc(new_size * sizeof(char));
+			if (newPtr == NULL)
+				return (NULL);
 
-	ptr_copy = ptr;
-	mem = malloc(sizeof(*ptr_copy) * new_size);
-
-	if (mem == NULL)
+	if (new_size > old_size)
 	{
+		for (i = 0; i < old_size; i++)
+		{
+			newPtr[i] = ((char *)ptr)[i];
+		}
 		free(ptr);
-		return (NULL);
+		return (newPtr);
 	}
-
-	filler = mem;
-
-	for (index = 0; index < old_size && index < new_size; index++)
-		filler[index] = *ptr_copy++;
-
-	free(ptr);
-	return (mem);
+	else
+	{
+		for (j = 0; j < new_size; j++)
+		{
+			newPtr[j] = ((char *)ptr)[j];
+		}
+		free(ptr);
+		return (newPtr);
+	}
 }
