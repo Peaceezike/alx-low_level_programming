@@ -1,11 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 /**
- * main - check the code for Holberton School students.
- *
- * Return: success.
- */
+*main-entry point
+*Return:0 if successful
+*/
+
 int main(void)
 {
-printf("%s\n", _FILE_);
-return (0);
+	printf("%s\n", _FILE_);
+	return (0);
 }
