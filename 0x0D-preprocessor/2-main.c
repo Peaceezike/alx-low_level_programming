@@ -1,12 +1,11 @@
 #include <stdio.h>
-
 /**
-  * main - Prints the file name of the program
-  *
-  * Return: Always zero
-  */
+ * main - check the code for Holberton School students.
+ *
+ * Return: success.
+ */
 int main(void)
 {
-	printf("%s\n", _FILE_);
-	return (0);
+printf("%s\n", _FILE_);
+return (0);
 }
