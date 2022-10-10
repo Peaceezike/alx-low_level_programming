@@ -1,10 +1,10 @@
 #include <stdio.h>
 
 /**
- * main - print the name of the file it was compiled from
- *
- * Return: the name of the file
+ * main - main function
+ * Return: int (0 or 1)
  */
+
 int main(void)
 {
 	printf("%s\n", _FILE_);
