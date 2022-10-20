@@ -1,12 +1,11 @@
-#include <stdio.h>
-
-void print_something(void) _attribute_ ((constructor));
+#include "lists.h"
 
 /**
- *print_something - prints a msg before the main
+ * constructorRun - runs
+ *  before main function is executed.
  */
-
-void print_something(void)
+void constructorRun(void)
 {
-printf("You're beat! and yet, you must allow,\n"    "I bore my house upon my back!\n");
+	printf("You're beat! and yet, you must allow,\n"
+		"I bore my house upon my back!\n");
 }
