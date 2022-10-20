@@ -1,32 +1,54 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include "lists.h"
 
 /**
- * add_nodeint_end - function with two arguments
- * @head: double pointer to head of first linked list
- * @n: integer value of data in node
+ * add_node_end - function that adds a new node at the end of list.
+ * @head: pointer to singly linked list.
+ * @str: pointer to signly linked list.
  *
- * Description: add a new node at the end of linked list
- * Return: address of new element
+ * str needs to be duplicated.
+ * You are allowed to use strdup.
+ *
+ * Return: The address of the new element or NULL if it failed.
+ *
  */
-listint_t *add_nodeint_end(listint_t **head, const int n)
+
+list_t *add_node_end(list_t **head, const char *str)
 {
-	listint_t *temp, *cursor;
+	list_t *new_node, *last;
+	size_t length = 0;
 
-	temp = malloc(sizeof(listint_t));
-	if (temp == NULL)
+	new_node = malloc(sizeof(list_t));
+	/* if it fails returb NULL */
+	if (new_node == NULL)
 		return (NULL);
-
-	temp->next = NULL;
-	temp->n = n;
-
-	if (*head)
+	/* loop through the string to find length */
+	while (str[length])
+		length++;
+	/* access the length of new_node and assign it to length */
+	new_node->len = length;
+	/* access the list of new_node and duplicate it */
+	new_node->str = strdup(str);
+	/* if there is no head/linked list make new_node as head */
+	if (*head == NULL)
 	{
-		cursor = *head;
-		while (cursor->next != NULL)
-			cursor = cursor->next;
-		cursor->next = temp;
+		new_node->next = *head; /*this step isn't needed really */
+		*head = new_node;
 	}
 	else
-		*head = temp;
-	return (temp);
+        {	/**
+		 * the new node is going to be the last node so make next,
+		 * of it as NULL
+		 */
+		new_node->next = NULL;
+		last = *head;
+		/* traverse till last node */
+		while (last->next)
+			last = last->next;
+		/* change the next of last node */
+		last->next = new_node;
+	}
+	return (new_node);
 }
