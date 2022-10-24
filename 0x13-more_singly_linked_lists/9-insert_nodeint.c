@@ -1,64 +1,53 @@
 #include "lists.h"
+#include <stdlib.h>
 
 /**
- * insert_nodeint_at_index - returns the nth node of a linked list
- * @head: pointer to the head of the list
- * @idx: index of the node to be added
- * @n: content of the new node
+ * insert_nodeint_at_index - function that inserts a new node at,
+ * a given position.
+ * @head: pointer to pointer to the head of linked list.
+ * @idx: index of the list where the new node should be added.
+ * @n: value of the new node.
  *
- * Return: the address of the node
+ * if it is not possible to add the new node at index idx, do not,
+ * add the new node and return NULL.
+ *
+ * Return:  the address of the new node, or NULL if it failed.
  */
+
 listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 {
-	listint_t *new_node = NULL;
-	listint_t *previous_node = NULL;
+	listint_t *new_node, *traverse;
 	unsigned int i = 0;
-
-	new_node = malloc(sizeof(listint_t));
-	if (new_node == NULL || idx > listint_len(*head))
-	{
-		free(new_node);
+	/* if there is no list return null */
+	if (head == NULL)
 		return (NULL);
-	}
+	/* create the new node */
+	new_node = malloc(sizeof(listint_t));
+	if (new_node == NULL)
+		return (NULL);
+	/* access the n field of the new_node and initialize it as n */
 	new_node->n = n;
-	new_node->next = NULL;
-	while (head != NULL)
+	/* check if idx = 0 */
+	if (idx == 0)
+	{
+		/* access the next field of new_node and assign it as first node */
+		new_node->next = *head;
+		*head = new_node;
+		return (new_node);
+	}
+	/* make traverse be the value at head */
+	traverse = *head;
+	while (i != idx - 1 && traverse != NULL)
         {
-		if (i == idx)
-		{
-			if (i == 0)
-			{
-				new_node->next = *head;
-				*head = new_node;
-				return (new_node);
-			}
-			new_node->next = previous_node->next;
-			previous_node->next = new_node;
-			return (new_node);
-		}
-		else if ((i + 1) == idx)
-			previous_node = *head;
-		head = &((*head)->next);
+		traverse = traverse->next;
 		i++;
 	}
-	return (NULL);
-}
 
-/**
- * listint_len - counts the number of nodes in a linked list
- * @h: head of the list
- *
- * Return: the number of elements
- */
-size_t listint_len(const listint_t *h)
-{
-	const listint_t *cursor = h;
-	size_t count = 0;
-
-	while (cursor != NULL)
+	if (i == idx - 1 && traverse != NULL)
 	{
-		count += 1;
-		cursor = cursor->next;
+		new_node->next = traverse->next;
+		traverse->next = new_node;
+		return (new_node);
 	}
-	return (count);
+	return (NULL);
 }
