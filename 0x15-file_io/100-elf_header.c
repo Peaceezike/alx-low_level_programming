@@ -1,27 +1,13 @@
-#include <stdio.h> 
-    #include <elf.h> 
+#include <stdio.h>
 
-    int main(void) 
-    { 
-    	FILE *fd = fopen("./cp", "rb"); 
-    #if defined (__linux) 
-    #  if defined(__x86_64) 
-    	Elf64_Ehdr Elf_Ehdr; 
-    #  elif defined(__i386) 
-    	Elf32_Ehdr Elf_Ehdr; 
-    #  endif	 
-    #endif 
-    	fread(&Elf_Ehdr, sizeof(char), sizeof(Elf_Ehdr), fd); 
-     
-    	int i; 
-    	unsigned char ident[4], magic[4]; 
-    	for (i = 0; i < 4; i++) { 
-    		ident[i] = Elf_Ehdr.e_ident[i]; 
-    	} 
-    	fclose(fd); 
-     
-    	snprintf(magic, sizeof(magic), "%s", &ident[sizeof(ident)+1]); 
-    	printf("%s\n", magic); 
-     
-    	return 0; 
-    }
+/**
+ * main - The entry point for program to get header of ELF file
+ * @argc: The number of arguments
+ * @argv: The pointer to array of arguments
+ * Return: 1 on success, error code on failure
+ */
+int main(int argc, char *argv[])
+{
+	printf("argc:%d, argv:%p\n", argc, (void *)*argv);
+	return (1);
+}
